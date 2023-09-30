@@ -36,11 +36,17 @@
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.keycloak/keycloak-spring-boot-starter -->
-<!--        <dependency>-->
-<!--            <groupId>org.keycloak</groupId>-->
-<!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
-<!--            <version>22.0.3</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.keycloak</groupId>-->
+        <!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
+        <!--            <version>22.0.3</version>-->
+        <!--        </dependency>-->
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-stream-kafka</artifactId>
+            <version>4.0.4</version>
+        </dependency>
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -68,6 +74,8 @@
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
+
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -91,15 +99,7 @@
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
-<!--            <dependency>-->
-<!--                <groupId>org.keycloak.bom</groupId>-->
-<!--                <artifactId>-->
-<!--                    keycloak-adapter-bom-->
-<!--                </artifactId>-->
-<!--                <version>11.0.2</version>-->
-<!--                <type>pom</type>-->
-<!--                <scope>import</scope>-->
-<!--            </dependency>-->
+
         </dependencies>
     </dependencyManagement>
 
@@ -155,6 +155,11 @@
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>1.5.5.Final</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
                         </path>
                     </annotationProcessorPaths>
                 </configuration>
