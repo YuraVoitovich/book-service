@@ -39,6 +39,11 @@ public class Controller {
         return ResponseEntity.ok(bookService.getBookByISBN(isbn));
     }
 
+    @PostMapping("book/{id}")
+    @PreAuthorize("hasRole('modsen-user')")
+    void takeBook(@PathVariable(name = "id") String id) {
+        bookService.takeBook(getUUIDFromString(id));
+    }
     @PostMapping("/book")
     @PreAuthorize("hasRole('modsen-admin')")
     void updateBook(@RequestParam BookDto bookDto) {
