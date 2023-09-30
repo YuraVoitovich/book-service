@@ -18,4 +18,6 @@ public interface BookService {
     void updateBook(BookDto bookDto);
 
     void deleteBook(UUID uuid);
+
+    void takeBook(UUID uuid);
 }
