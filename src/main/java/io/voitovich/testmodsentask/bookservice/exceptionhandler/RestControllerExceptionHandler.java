@@ -15,5 +15,8 @@ public class RestControllerExceptionHandler extends ResponseEntityExceptionHandl
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
-
+    @ExceptionHandler(NoSuchRecordException.class)
+    public ResponseEntity<Object> handleNoSuchRecordException(NoSuchRecordException exception) {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
 }

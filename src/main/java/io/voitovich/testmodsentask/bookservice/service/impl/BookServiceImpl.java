@@ -4,6 +4,7 @@ import io.voitovich.testmodsentask.bookservice.dto.BookDto;
 import io.voitovich.testmodsentask.bookservice.dto.mapper.BookMapper;
 import io.voitovich.testmodsentask.bookservice.entity.Book;
 import io.voitovich.testmodsentask.bookservice.events.service.KafkaProducerService;
+import io.voitovich.testmodsentask.bookservice.exception.NoSuchRecordException;
 import io.voitovich.testmodsentask.bookservice.repository.BookRepository;
 import io.voitovich.testmodsentask.bookservice.service.BookService;
 import lombok.extern.slf4j.Slf4j;
@@ -42,21 +43,27 @@ public class BookServiceImpl implements BookService {
     @Override
     public List<BookDto> getAllBooks() {
         log.info("Getting all books");
-        return bookRepository.findAll().stream().map(BookMapper.INSTANCE::toDto).collect(Collectors.toList());
+        return bookRepository.findAll().stream()
+                .map(BookMapper.INSTANCE::toDto)
+                .collect(Collectors.toList());
     }
 
     @Override
     public BookDto getBookById(UUID uuid) {
         log.info("Getting book by UUID: {}", uuid);
         Optional<Book> bookOptional = bookRepository.getBookById(uuid);
-        return BookMapper.INSTANCE.toDto(bookOptional.orElseThrow(RuntimeException::new));
+        return BookMapper.INSTANCE.toDto(bookOptional
+                .orElseThrow(() -> new NoSuchRecordException(String
+                        .format("Book with uuid: {%s} not found", uuid))));
     }
 
     @Override
     public BookDto getBookByISBN(String isbn) {
         log.info("Getting book by ISBN: {}", isbn);
         Optional<Book> bookOptional = bookRepository.getBookByISBN(isbn);
-        return BookMapper.INSTANCE.toDto(bookOptional.orElseThrow());
+        return BookMapper.INSTANCE.toDto(bookOptional
+                .orElseThrow(() -> new NoSuchRecordException(String
+                        .format("Book with isbn: {%s} not found", isbn))));
     }
 
     @Override
