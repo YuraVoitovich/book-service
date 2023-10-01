@@ -1,4 +1,4 @@
-package io.voitovich.testmodsentask.bookservice.events.source;
+package io.voitovich.testmodsentask.bookservice.events.service;
 
 public interface KafkaProducerService {
 

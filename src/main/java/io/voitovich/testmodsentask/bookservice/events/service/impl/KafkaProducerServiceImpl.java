@@ -1,11 +1,14 @@
-package io.voitovich.testmodsentask.bookservice.events.source.impl;
+package io.voitovich.testmodsentask.bookservice.events.service.impl;
 
-import io.voitovich.testmodsentask.bookservice.events.source.KafkaProducerService;
+import io.voitovich.testmodsentask.bookservice.events.service.KafkaProducerService;
 import io.voitovich.testmodsentask.bookservice.exception.KafkaSendingException;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 
+
+@Slf4j
 @Component
 public class KafkaProducerServiceImpl implements KafkaProducerService {
 
@@ -21,8 +24,10 @@ public class KafkaProducerServiceImpl implements KafkaProducerService {
     public void send(String uuid) {
         try {
             kafkaTemplate.send(topic, uuid);
+            log.info("Message sent successfully to topic: {} with UUID: {}", topic, uuid);
         } catch (Exception e) {
-                throw new KafkaSendingException("Error while sending message to kafka");
+            log.error("Error while sending message to topic: {} with UUID: {}", topic, uuid, e);
+            throw new KafkaSendingException("Error while sending message to kafka", e);
         }
     }
 }
