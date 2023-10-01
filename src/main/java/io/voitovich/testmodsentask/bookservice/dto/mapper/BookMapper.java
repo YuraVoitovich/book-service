@@ -11,8 +11,11 @@ import org.mapstruct.factory.Mappers;
 public interface BookMapper {
 
     BookMapper INSTANCE = Mappers.getMapper(BookMapper.class);
+
+    @Mapping(target = "id", source = "id")
     BookDto toDto(Book book);
 
+    @Mapping(target = "id", source = "id")
     Book toEntity(BookDto bookDto);
 
 
