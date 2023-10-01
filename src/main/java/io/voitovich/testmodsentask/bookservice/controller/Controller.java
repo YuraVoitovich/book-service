@@ -46,13 +46,13 @@ public class Controller {
     }
     @PostMapping("/book")
     @PreAuthorize("hasRole('modsen-admin')")
-    void updateBook(@RequestParam BookDto bookDto) {
+    void updateBook(@RequestBody BookDto bookDto) {
         bookService.updateBook(bookDto);
     }
 
     @PutMapping("/book")
     @PreAuthorize("hasRole('modsen-admin')")
-    void addBook(@RequestParam BookDto bookDto) {
+    void addBook(@RequestBody BookDto bookDto) {
         bookService.addBook(bookDto);
     }
 
