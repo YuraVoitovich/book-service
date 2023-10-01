@@ -25,11 +25,19 @@ import static org.springframework.security.config.http.SessionCreationPolicy.*;
 public class SecurityConfig {
 
 
+    private static final String[] AUTH_WHITELIST = {
+            "/swagger-resources",
+            "/swagger-resources/**",
+            "/swagger-ui.html",
+            "/webjars/**",
+            "/v3/api-docs/**",
+            "/actuator/*",
+            "/swagger-ui/**"
+    };
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.authorizeHttpRequests((o) -> o.anyRequest().authenticated());
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.oauth2ResourceServer(httpSecurityOAuth2ResourceServerConfigurer ->
@@ -38,6 +46,11 @@ public class SecurityConfig {
 
         http.sessionManagement(httpSecuritySessionManagementConfigurer ->
                 httpSecuritySessionManagementConfigurer.sessionCreationPolicy(STATELESS));
+
+        http.authorizeHttpRequests((o) ->
+            o.requestMatchers(AUTH_WHITELIST).permitAll()
+                    .anyRequest().authenticated());
+
 
         return http.build();
     }
@@ -49,31 +62,4 @@ public class SecurityConfig {
     }
 
 
-
-
-//    @Override
-//    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-//        return new RegisterSessionAuthenticationStrategy(
-//                new SessionRegistryImpl());
-//    }
-//
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        super.configure(http);
-//        http.authorizeHttpRequests((o) -> o.anyRequest().permitAll());
-//        http.csrf(AbstractHttpConfigurer::disable);
-//
-//    }
-//
-//
-//
-//    @Override
-//    public void init(WebSecurity builder) throws Exception {
-//
-//    }
-//
-//    @Override
-//    public void configure(WebSecurity builder) throws Exception {
-//
-//    }
 }
