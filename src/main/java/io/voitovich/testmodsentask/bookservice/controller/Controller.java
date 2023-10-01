@@ -12,7 +12,7 @@ import java.util.List;
 
 import static io.voitovich.testmodsentask.bookservice.controller.utils.UUIDUtils.getUUIDFromString;
 
-@RestController("/api")
+@RestController()
 public class Controller {
 
     private final BookService bookService;
