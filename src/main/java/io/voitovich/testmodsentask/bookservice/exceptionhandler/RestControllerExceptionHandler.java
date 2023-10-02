@@ -1,7 +1,8 @@
 package io.voitovich.testmodsentask.bookservice.exceptionhandler;
 
 
-import io.voitovich.testmodsentask.bookservice.exception.*;
+import io.voitovich.testmodsentask.bookservice.exception.NoSuchRecordException;
+import io.voitovich.testmodsentask.bookservice.exception.NotValidUUIDException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
