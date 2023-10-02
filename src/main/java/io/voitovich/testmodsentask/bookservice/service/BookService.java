@@ -13,7 +13,7 @@ public interface BookService {
 
     BookDto getBookByISBN(String isbn);
 
-    void addBook(BookDto bookDto);
+    BookDto addBook(BookDto bookDto);
 
     void updateBook(BookDto bookDto);
 

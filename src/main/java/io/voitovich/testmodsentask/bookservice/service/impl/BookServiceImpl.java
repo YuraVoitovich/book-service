@@ -37,7 +37,12 @@ public class BookServiceImpl implements BookService {
     @Override
     public void takeBook(UUID uuid) {
         log.info("Taking book with UUID: {}", uuid);
-        kafkaProducerService.send(uuid.toString());
+        Optional<Book> bookOptional = bookRepository.getBookById(uuid);
+        kafkaProducerService.send(bookOptional
+                .orElseThrow(() -> new NoSuchRecordException(String
+                .format("Book with uuid: {%s} not found", uuid)))
+                .getId()
+                .toString());
     }
 
     @Override
@@ -67,9 +72,12 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public void addBook(BookDto bookDto) {
+    public BookDto addBook(BookDto bookDto) {
         log.info("Adding a new book: {}", bookDto);
-        this.bookRepository.save(BookMapper.INSTANCE.toEntity(bookDto));
+        return BookMapper.INSTANCE
+                .toDto(bookRepository
+                        .save(BookMapper.INSTANCE
+                                .toEntity(bookDto)));
     }
 
     @Override
