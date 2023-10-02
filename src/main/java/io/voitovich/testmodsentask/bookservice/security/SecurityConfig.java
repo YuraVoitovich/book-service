@@ -55,11 +55,4 @@ public class SecurityConfig {
         return http.build();
     }
 
-
-    @Bean
-    public GrantedAuthorityDefaults grantedAuthorityDefaults() {
-        return new GrantedAuthorityDefaults("");
-    }
-
-
 }

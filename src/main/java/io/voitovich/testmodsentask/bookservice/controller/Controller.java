@@ -23,7 +23,7 @@ public class Controller {
 
     @GetMapping("/books")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-user')")
+    @PreAuthorize("hasRole('ROLE_modsen-user')")
     ResponseEntity<List<BookDto>> getAllBooks() {
         return ResponseEntity.ok(bookService.getAllBooks());
     }
@@ -31,41 +31,41 @@ public class Controller {
 
     @GetMapping("/book/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-user')")
+    @PreAuthorize("hasRole('ROLE_modsen-user')")
     ResponseEntity<BookDto> getBookById(@PathVariable(name = "id") String id) {
         return ResponseEntity.ok(bookService.getBookById(getUUIDFromString(id)));
     }
 
     @GetMapping("/book-isbn/{isbn}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-user')")
+    @PreAuthorize("hasRole('ROLE_modsen-user')")
     ResponseEntity<BookDto> getBookByIsbn(@PathVariable(name = "isbn") String isbn) {
         return ResponseEntity.ok(bookService.getBookByISBN(isbn));
     }
 
     @PostMapping("book/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-user')")
+    @PreAuthorize("hasRole('ROLE_modsen-user')")
     void takeBook(@PathVariable(name = "id") String id) {
         bookService.takeBook(getUUIDFromString(id));
     }
     @PostMapping("/book")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-admin')")
+    @PreAuthorize("hasRole('ROLE_modsen-admin')")
     void updateBook(@RequestBody BookDto bookDto) {
         bookService.updateBook(bookDto);
     }
 
     @PutMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
-    @PreAuthorize("hasRole('modsen-admin')")
+    @PreAuthorize("hasRole('ROLE_modsen-admin')")
     void addBook(@RequestBody BookDto bookDto) {
         bookService.addBook(bookDto);
     }
 
     @DeleteMapping("/book/{id}")
     @ResponseStatus(HttpStatus.OK)
-    @PreAuthorize("hasRole('modsen-admin')")
+    @PreAuthorize("hasRole('ROLE_modsen-admin')")
     void deleteBook(@PathVariable(name = "id") String id) {
         bookService.deleteBook(getUUIDFromString(id));
     }
