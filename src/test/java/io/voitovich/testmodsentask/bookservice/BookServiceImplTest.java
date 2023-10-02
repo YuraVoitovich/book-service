@@ -56,6 +56,10 @@ public class BookServiceImplTest {
     @Test
     public void testTakeBook() {
         UUID uuid = UUID.randomUUID();
+        Book book = new Book();
+        book.setId(uuid);
+        when(bookRepository.getBookById(uuid)).thenReturn(Optional.of(book));
+
         bookService.takeBook(uuid);
         verify(kafkaProducerService, times(1)).send(uuid.toString());
     }
@@ -95,6 +99,7 @@ public class BookServiceImplTest {
     @Test
     public void testAddBook() {
         BookDto bookDto = new BookDto();
+
         bookService.addBook(bookDto);
         verify(bookRepository, times(1)).save(BookMapper.INSTANCE.toEntity(bookDto));
     }
