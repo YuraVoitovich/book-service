@@ -59,8 +59,8 @@ public class Controller {
     @PutMapping("/book")
     @ResponseStatus(HttpStatus.CREATED)
     @PreAuthorize("hasRole('ROLE_modsen-admin')")
-    void addBook(@RequestBody BookDto bookDto) {
-        bookService.addBook(bookDto);
+    ResponseEntity<BookDto> addBook(@RequestBody BookDto bookDto) {
+        return new ResponseEntity<>(bookService.addBook(bookDto), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/book/{id}")
