@@ -1,24 +1,10 @@
-
 spring:
   profiles:
     active: dev
   application:
     name: book-service
   config:
-    import: optional:configserver:http://localhost:8071/
-
-  security:
-    oauth2:
-      resourceserver:
-        jwt:
-          issuer-uri: http://localhost:8080/auth/realms/modsen
-          jwk-set-uri: http://localhost:8080/auth/realms/modsen/protocol/openid-connect/certs
-
-logging:
-  level:
-    org:
-      springframework:
-        security: DEBUG
-
+    import: optional:configserver:http://configserver:8071/
 server:
   port: 8081
+
